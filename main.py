@@ -67,8 +67,9 @@ def main(configFile):
                 suffix = f"{dreamer.totalGradientSteps}steps"
                 print(f"Saving checkpoint: {checkpointFilenameBase}_{suffix}.pth")
                 dreamer.saveCheckpoint(f"{checkpointFilenameBase}_{suffix}")
-                evaluationScore = dreamer.environmentInteraction(envEvaluation, config.numEvaluationEpisodes, seed=config.seed, evaluation=True, saveVideo=True, filename=f"{videoFilenameBase}_{suffix}")
-                print(f"Saved Checkpoint and Video at {suffix:>6} gradient steps. Evaluation score: {evaluationScore:>8.2f}")
+                evaluationScore = dreamer.environmentInteraction(envEvaluation, config.numEvaluationEpisodes, seed=config.seed, evaluation=True, saveVideo=config.saveVideos, filename=f"{videoFilenameBase}_{suffix}")
+                videoStatus = "and Video " if config.saveVideos else ""
+                print(f"Saved Checkpoint {videoStatus}at {suffix:>6} gradient steps. Evaluation score: {evaluationScore:>8.2f}")
 
         mostRecentScore = dreamer.environmentInteraction(env, config.numInteractionEpisodes, seed=config.seed)
         if config.saveMetrics:

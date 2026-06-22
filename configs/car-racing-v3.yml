@@ -6,7 +6,8 @@ gradientSteps: 60000
 replayRatio: 100
 saveMetrics: True        # Saves metrics at replayRatio interval
 saveCheckpoints: True
-checkpointInterval: 2000
+saveVideos: True
+checkpointInterval: 4000
 resume: False
 checkpointToLoad: 50k
 
