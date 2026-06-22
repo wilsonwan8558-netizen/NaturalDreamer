@@ -205,9 +205,12 @@ class Dreamer:
 
                     if saveVideo and i == 0:
                         finalFilename = f"{filename}_reward_{currentScore:.0f}.mp4"
-                        with imageio.get_writer(finalFilename, fps=fps) as video:
-                            for frame in frames:
-                                video.append_data(frame)
+                        try:
+                            with imageio.get_writer(finalFilename, fps=fps) as video:
+                                for frame in frames:
+                                    video.append_data(frame)
+                        except Exception as exc:
+                            print(f"Skipping video save for {finalFilename}: {exc}")
                     break
         return sum(scores)/numEpisodes if numEpisodes else None
     
@@ -259,4 +262,3 @@ class Dreamer:
         self.totalGradientSteps = checkpoint['totalGradientSteps']
         if self.config.useContinuationPrediction:
             self.continuePredictor.load_state_dict(checkpoint['continuePredictor'])
-
