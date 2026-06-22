@@ -30,7 +30,8 @@ def findFile(filename):
 def loadConfig(config_path):
     if not config_path.endswith(".yml"):
         config_path += ".yml"
-    config_path = findFile(config_path)
+    if not os.path.exists(config_path):
+        config_path = findFile(os.path.basename(config_path))
     with open(config_path) as f:
         config = yaml.load(f, Loader=yaml.FullLoader)
     return attridict(config)
